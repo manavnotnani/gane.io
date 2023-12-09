@@ -1,0 +1,24 @@
+@import "../../assets/scss/_var.scss";
+
+.no-record {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px 10px;
+  text-align: center;
+
+  @media (max-width: 767px) {
+    margin: 20px 10px;
+  }
+
+  span {
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+
+  p {
+    font-size: 20px;
+    margin-bottom: 0;
+    color: $white;
+  }
+}

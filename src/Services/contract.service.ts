@@ -1,6 +1,7 @@
 import Web3 from "web3";
 import NFTAbi from "../abi/NFTAbi.json";
-import { RPC_URL, CHAIN_ID, NFT_ADDRESS } from "../Utils";
+import NFTMarketplace from "../abi/NFTMarketplace.json";
+import { RPC_URL, CHAIN_ID, NFT_ADDRESS, NFT_MARKETPLACE } from "../Utils";
 
 var BigNumber = require("big-number");
 
@@ -42,10 +43,19 @@ export const getContractInstance = async (
   return new Promise(async (resolve, reject) => {
     switch (contractType) {
       case "NFT":
-        let icoInstance = await createInstance().then(async () => {
+        let nftInstance = await createInstance().then(async () => {
           return await new web3Instance.eth.Contract(NFTAbi, NFT_ADDRESS);
         });
-        resolve(icoInstance);
+        resolve(nftInstance);
+        break;
+      case "Marketplace":
+        let marketplaceInstance = await createInstance().then(async () => {
+          return await new web3Instance.eth.Contract(
+            NFTMarketplace,
+            NFT_MARKETPLACE
+          );
+        });
+        resolve(marketplaceInstance);
         break;
       default:
         return null;
@@ -129,12 +139,16 @@ export const callSendMethod = async (
       //       return false;
       //     }
       //   }
+
       if (contract.methods) {
+        console.log("2222", data);
         /**ESTIMATE GAS FOR TRANSACTION */
         const gasLimit = await contract.methods[method]
           .apply(null, Array.prototype.slice.call(data))
           .estimateGas(dataForSend);
         dataForSend.gasLimit = gasLimit;
+
+        console.log("111", dataForSend);
 
         /**CALL SEND METHOD */
         contract.methods[method]
@@ -150,6 +164,7 @@ export const callSendMethod = async (
         reject(new Error("Contract not found."));
       }
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });

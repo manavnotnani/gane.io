@@ -25,7 +25,7 @@ const NftDetails = () => {
           <Row>
             <Col lg="6" md="6" sm="6">
               <img
-                src={singleNft.imgUrl}
+                src={singleNft.image}
                 alt=""
                 className="w-100 single__nft-img"
               />

@@ -16,7 +16,7 @@ const item = {
   id: "01",
   title: "Guard",
   desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam adipisci cupiditate officia, nostrum et deleniti vero corrupti facilis minima laborum nesciunt nulla error natus saepe illum quasi ratione suscipit tempore dolores. Recusandae, similique modi voluptates dolore repellat eum earum sint.",
-  imgUrl: img,
+  image: img,
   currentBid: 7.89,
 };
 
@@ -30,7 +30,7 @@ const Create = () => {
       trait: "",
       traitValue: "",
       description: "",
-      imgUrl: "",
+      image: "",
     },
 
     async onSubmit(values) {
@@ -43,7 +43,7 @@ const Create = () => {
           value: values.traitValue,
         },
         description: values.description,
-        image: values.imgUrl,
+        image: values.image,
       };
 
       console.log(valuesToSend);
@@ -87,7 +87,7 @@ const Create = () => {
             <Row>
               <Col lg="3" md="4" sm="6">
                 <h5 className="mb-4 text-light">Preview Item</h5>
-                <NftCard item={formik.values} />
+                <NftCard item={formik.values} type="preview" />
               </Col>
 
               <Col lg="9" md="8" sm="6">
@@ -109,8 +109,8 @@ const Create = () => {
                       type="text"
                       placeholder="Enter the full IPFS link"
                       onChange={formik.handleChange}
-                      value={formik.values.imgUrl}
-                      name="imgUrl"
+                      value={formik.values.image}
+                      name="image"
                     />
                   </div>
 

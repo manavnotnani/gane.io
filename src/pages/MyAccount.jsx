@@ -1,48 +1,62 @@
-import React, { useState } from "react";
-
+import { init, useQuery } from "@airstack/airstack-react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Col, Container, Row } from "reactstrap";
+import { AIRSTACK_API } from "../Utils";
 import CommonSection from "../components/ui/Common-section/CommonSection";
-
-import NftCard from "../components/ui/Nft-card/NftCard";
-
-import { NFT__DATA } from "../assets/data/data";
-
-import { Container, Row, Col } from "reactstrap";
-
 import "../styles/market.css";
+import { getTokensAirstack } from "./Queries";
+import { useQueries } from "react-query";
+import NftCard from "../components/ui/Nft-card/NftCard";
+import NoRecordFound from "../components/NoRecordFound/NoRecordFound";
+
+init(AIRSTACK_API);
 
 const MyAccount = () => {
-  const [data, setData] = useState(NFT__DATA);
+  const [userNFTs, setUserNFTs] = useState([]);
 
-  const handleCategory = () => {};
+  const walletAddress = useSelector((state) => state?.user?.walletAddress);
 
-  const handleItems = () => {};
+  const { data } = useQuery(getTokensAirstack, {
+    walletAddress: walletAddress,
+    chain: "polygon",
+  });
 
-  // ====== SORTING DATA BY HIGH, MID, LOW RATE =========
-  const handleSort = (e) => {
-    const filterValue = e.target.value;
+  const updateUserNFTs = async () => {
+    if (data) {
+      let arrData = data?.TokenBalances?.TokenBalance;
+      let temp = [];
 
-    if (filterValue === "high") {
-      const filterData = NFT__DATA.filter((item) => item.currentBid >= 6);
+      for (let i = 0; i < arrData.length; i++) {
+        console.log("arrData[i].tokenNFTs?.erc6551Accounts", arrData[i]);
+        if (arrData[i].tokenNfts?.erc6551Accounts?.length > 0) {
+          let tokenId = arrData[i].tokenId;
+          console.log("tokenId", tokenId);
+          let nft = arrData[i].tokenNfts;
+          console.log("nft", nft);
 
-      setData(filterData);
-    }
+          let finalNFT = {
+            tokenId: tokenId,
+            address: nft?.erc6551Accounts[0]?.address.addresses,
+            description: nft?.metaData?.description,
+            image: nft?.metaData?.image,
+            attributes: nft?.metaData?.attributes,
+            name: nft?.metaData?.name,
+          };
 
-    if (filterValue === "mid") {
-      const filterData = NFT__DATA.filter(
-        (item) => item.currentBid >= 5.5 && item.currentBid < 6
-      );
+          temp.push(finalNFT);
+        }
+      }
 
-      setData(filterData);
-    }
-
-    if (filterValue === "low") {
-      const filterData = NFT__DATA.filter(
-        (item) => item.currentBid >= 4.89 && item.currentBid < 5.5
-      );
-
-      setData(filterData);
+      setUserNFTs(temp);
     }
   };
+
+  console.log("userNFTs", userNFTs);
+
+  useEffect(() => {
+    updateUserNFTs();
+  }, [data]);
 
   return (
     <>
@@ -85,11 +99,15 @@ const MyAccount = () => {
               </div>
             </Col> */}
 
-            {data?.map((item) => (
-              <Col lg="3" md="4" sm="6" className="mb-4" key={item.id}>
-                <NftCard item={item} type="myAccount" />
-              </Col>
-            ))}
+            {userNFTs.length > 0 ? (
+              userNFTs?.map((item) => (
+                <Col lg="3" md="4" sm="6" className="mb-4" key={item.id}>
+                  <NftCard item={item} type="listApprove" />
+                </Col>
+              ))
+            ) : (
+              <NoRecordFound />
+            )}
           </Row>
         </Container>
       </section>

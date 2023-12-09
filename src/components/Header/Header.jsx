@@ -19,8 +19,8 @@ const NAV__LINKS = [
     url: "/create",
   },
   {
-    display: "Contact",
-    url: "/contact",
+    display: "My Account",
+    url: "/my-account",
   },
 ];
 

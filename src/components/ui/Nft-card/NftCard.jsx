@@ -1,24 +1,54 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import "./nft-card.css";
 
 import Modal from "../Modal/Modal";
+import { callContractGetMethod } from "../../../Redux/Actions/contract.action";
+import { NFT_ADDRESS } from "../../../Utils";
+import { useDispatch } from "react-redux";
+import { callApiGetMethod } from "../../../Redux/Actions/api.action";
+import { apiCallGet } from "../../../Services/axios.service";
 
 const NftCard = (props) => {
-  const { imgUrl } = props.item;
+  const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
+  const [nftImage, setNftImage] = useState("");
+
+  const { image } = props.item;
   const type = props.type;
 
-  const [showModal, setShowModal] = useState(false);
+  const getImage = async () => {
+    if (!image) {
+      const data = await dispatch(
+        callContractGetMethod(
+          "tokenURI",
+          [props.item.TokenId],
+          "NFT",
+          false,
+          NFT_ADDRESS,
+          false
+        )
+      );
+
+      const jsonData = await apiCallGet(data, {}, false);
+      setNftImage(jsonData?.image);
+    }
+  };
+
+  useEffect(() => {
+    if (image) setNftImage(image);
+    else getImage();
+  }, [props]);
 
   return (
     <div className="single__nft__card">
       <div className="nft__img">
         <img
           src={
-            imgUrl
-              ? imgUrl
-              : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+            nftImage
+              ? nftImage
+              : "https://www.carnival.com.au/_ui/responsive/ccl/assets/images/notfound_placeholder.svg"
           }
           alt=""
           className="w-100"
@@ -26,9 +56,7 @@ const NftCard = (props) => {
       </div>
 
       <div className="nft__content">
-        {/* <h5 className="nft__title">
-          <Link to={`/market/${id}`}>{title}</Link>
-        </h5> */}
+        <h5 className="nft__title">{props.item.name}</h5>
 
         {/* <div className="creator__info-wrapper d-flex gap-3">
           <div className="creator__img">
@@ -49,15 +77,31 @@ const NftCard = (props) => {
         </div> */}
 
         <div className=" mt-3 d-flex align-items-center justify-content-between">
-          <button
+          {/* <button
             className="bid__btn d-flex align-items-center gap-1"
-            onClick={() => setShowModal(true)}
+            onClick={() => navigate(`/market/${props.id}`)}
           >
-            List NFT
-          </button>
+            View
+          </button> */}
 
-          {showModal && <Modal setShowModal={setShowModal} />}
+          {type !== "preview" ? (
+            <button
+              className="bid__btn d-flex align-items-center gap-1"
+              onClick={() => setShowModal(true)}
+            >
+              {type === "listApprove" ? "List NFT" : "Buy"}
+            </button>
+          ) : (
+            ""
+          )}
 
+          {showModal && (
+            <Modal
+              setShowModal={setShowModal}
+              type={props.type}
+              item={props.item}
+            />
+          )}
           {/* <span className="history__link">
             <Link to="#">View History</Link>
           </span> */}
