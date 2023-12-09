@@ -1,6 +1,7 @@
 import * as http from 'http';
 import * as serverHandlers from './serverHandlers';
 import server from './server';
+import MainService from '../../components/commonServices/main';
 
 const Server: http.Server = http.createServer(server);
 
@@ -12,5 +13,6 @@ Server.listen(server.get('port'));
 /**
  * Server Events
  */
+MainService.getEvents();
 Server.on('error', (error: Error) => serverHandlers.onError(error, server.get('port')));
 Server.on('listening', serverHandlers.onListening.bind(Server));

@@ -1,15 +1,16 @@
-import UserModel, { IUserModel } from './model';
-import { IAuthService } from './interface';
+import { PromiseResolve } from '../../utils/common.interface';
+import CustomError from '../../utils/customError';
 import logger from '../../utils/logger';
 import { RESPONSES, RES_MSG } from '../../utils/response';
-import CustomError from '../../utils/customError';
-import { PromiseResolve } from '../../utils/common.interface';
+import { IAuthService } from './interface';
+import UserModel, { IUserModel } from './model';
+import nftUserModel from './nftUserModel';
 
 /**
  * @export
  * @implements {IAuthService}
  */
-const AuthService: IAuthService = {
+const AuthService: any = {
 
     /**
      * @param {any} params
@@ -101,6 +102,17 @@ const AuthService: IAuthService = {
             };
         }
     },
+
+
 };
+
+
+export async function saveEventDetails(data: any) {
+    try {
+        await nftUserModel.create(data);
+    } catch (error) {
+        throw error;
+    }
+}
 
 export default AuthService;

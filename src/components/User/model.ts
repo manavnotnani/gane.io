@@ -1,11 +1,11 @@
-import * as bcrypt from 'bcrypt';
-import { Document, Schema } from 'mongoose';
-import { NextFunction } from 'express';
-import * as connections from '../../config/connection/connection';
+import * as bcrypt from "bcrypt";
+import { Document, Schema } from "mongoose";
+import { NextFunction } from "express";
+import * as connections from "../../config/connection/connection";
 
 export type AuthToken = {
-    accessToken: string,
-    kind: string,
+  accessToken: string;
+  kind: string;
 };
 
 /**
@@ -14,9 +14,9 @@ export type AuthToken = {
  * @extends {Document}
  */
 export interface IUserModel extends Document {
-    email: string;
-    password: string;
-    comparePassword: (password: string) => Promise<boolean>;
+  email: string;
+  password: string;
+  comparePassword: (password: string) => Promise<boolean>;
 }
 
 /**
@@ -41,48 +41,61 @@ export interface IUserModel extends Document {
  *      items:
  *        $ref: '#/components/schemas/UserSchema'
  */
-const UserSchema: Schema = new Schema({
+const UserSchema: Schema = new Schema(
+  {
     email: {
-        type: String,
-        unique: true,
-        trim: true,
+      type: String,
+      unique: true,
+      trim: true,
     },
     password: String,
-}, {
-    collection: 'usermodel',
+  },
+  {
+    collection: "usermodel",
     versionKey: false,
-});
+  }
+);
 
-UserSchema.pre('save', async function (next: NextFunction): Promise<void> {
-    const user: IUserModel = this as IUserModel;
 
-    if (!user.isModified('password')) {
-        return next();
-    }
 
-    try {
-        const salt: string = await bcrypt.genSalt(10);
+UserSchema.pre("save", async function (next: NextFunction): Promise<void> {
+  const user: IUserModel = this as IUserModel;
 
-        const hash: string = await bcrypt.hash(user.password, salt);
+  if (!user.isModified("password")) {
+    return next();
+  }
 
-        user.password = hash;
-        next();
-    } catch (error) {
-        return next(error);
-    }
+  try {
+    const salt: string = await bcrypt.genSalt(10);
+
+    const hash: string = await bcrypt.hash(user.password, salt);
+
+    user.password = hash;
+    next();
+  } catch (error) {
+    return next(error);
+  }
 });
 
 /**
  * Method for comparing passwords
  */
-UserSchema.methods.comparePassword = async function (this: IUserModel, candidatePassword: string): Promise<boolean> {
-    try {
-        const match: boolean = await bcrypt.compare(candidatePassword, this.password);
+UserSchema.methods.comparePassword = async function (
+  this: IUserModel,
+  candidatePassword: string
+): Promise<boolean> {
+  try {
+    const match: boolean = await bcrypt.compare(
+      candidatePassword,
+      this.password
+    );
 
-        return match;
-    } catch (error) {
-        return error;
-    }
+    return match;
+  } catch (error) {
+    return error;
+  }
 };
 
-export default connections.db.model<IUserModel>('UserModel', UserSchema);
+export default connections.db.model<IUserModel>("UserModel", UserSchema);
+
+
