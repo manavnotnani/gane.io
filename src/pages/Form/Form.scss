@@ -1,0 +1,12 @@
+@import "../../../assets/theme/_var.scss";
+
+.formPage {
+    @media (max-width:1199px) {
+        padding: 2rem 1.5rem;
+    }
+    .UploadFilesform {
+        label {
+            width: 100%;
+        }
+    }
+}

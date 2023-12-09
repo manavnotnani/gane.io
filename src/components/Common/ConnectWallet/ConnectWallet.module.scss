@@ -1,0 +1,159 @@
+@import "../../../assets/scss/var";
+
+.connectwlt {
+  :global {
+    .modal-dialog {
+      // max-width: 45rem;
+      // margin: auto;
+
+      .modal-content {
+        background: $darkblue;
+        border-radius: 2rem;
+        border: none;
+
+        .modal-header {
+          padding: 2rem 3rem 1.5rem;
+          border: none;
+
+          .modal-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: white;
+          }
+
+          .btn-close {
+            background-image: url(../../../assets/Icons/Svg_icons.tsx);
+            opacity: 1;
+            width: 1rem;
+            height: 1rem;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+        }
+
+        .modal-body {
+          padding: 2rem 3rem;
+
+          .connect_options {
+            &_details {
+              text-align: center;
+              margin-bottom: 1rem;
+
+              .spinner-border {
+                width: 2.5rem;
+                height: 2.5rem;
+                border-width: 3px;
+                margin-bottom: 0.5rem;
+                color: $greenClr;
+              }
+
+              p {
+                font-size: 1.4rem;
+                font-weight: 400;
+              }
+
+              &.danger {
+                margin-bottom: 0;
+
+                p {
+                  font-weight: 500;
+                  color: $red;
+                  margin-bottom: 1rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &_main {
+    ul {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+
+      li {
+        margin-bottom: 1.5rem;
+        width: 100%;
+
+        button {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          width: 100%;
+          max-width: 100%;
+          border: none;
+          border-radius: 2rem;
+          padding: 1.5rem 3rem;
+          background: $blacklightbg;
+          color: $white;
+          font-size: 1.8rem;
+
+          &:hover {
+            background: $bluelight2;
+          }
+
+          img {
+            width: 3rem;
+            height: 3rem;
+          }
+
+          p {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-left: 2rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+.connectbtn {
+  max-width: 100%;
+  letter-spacing: 0.85px;
+  height: 3rem;
+  width: 12rem;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+
+  @media (max-width: 575px) {
+    font-size: 1rem;
+    height: 4rem;
+    margin-left: auto;
+    padding: 0;
+    padding-inline: 1rem;
+
+    .text {
+      display: none;
+    }
+  }
+
+  span {
+    &.icon {
+      @media (min-width: 576px) {
+        display: none;
+      }
+    }
+  }
+}
+
+.btn_comd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+:global {
+  .headingInfo {
+    padding: 3rem 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: $white;
+  }
+}

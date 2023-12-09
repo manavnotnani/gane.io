@@ -1,0 +1,49 @@
+// fonts
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+$baseFont: "Montserrat", sans-serif;
+$baseFont2: "Raleway", sans-serif;
+// colors
+$white: #ffffff;
+$black: #000000;
+$black2: #1e1e1e;
+$red: #f00;
+$red2: #f14b4b;
+$errorclr: #dc3545;
+$bgwhite: #f8f8f8;
+$boxshadow: #000000bf;
+$boxshadow2: 4px 5px 14px #0000004d;
+$greenClr: #2dda92;
+$greenClr2: #51bf4f;
+$yellowLight: #fef6e7;
+$blueClr: #7935f1;
+$bluelight: #7482ff;
+$bluelight2: #6d7cff;
+$bluelight3: #484e88;
+$bluelight4: #5c53c6;
+$bluelight5: #6966b5;
+$layoutBg: #0a0a0b;
+$gradient: linear-gradient(93deg, #7836ee 20%, #31e096 75%);
+$gradientbg: linear-gradient(
+  91.69deg,
+  #5b65c4 43.28%,
+  #7482ff 65.47%,
+  #5b65c4 85.47%
+);
+$gradientbg2: linear-gradient(81.48deg, #1a193e 13.03%, #0e1026 86.97%);
+$gradientbg3: linear-gradient(
+  141.03deg,
+  #1c1c1c 15.66%,
+  rgba(28, 28, 28, 0) 67.82%
+);
+$gradientbg4: linear-gradient(90deg, #49ffc7 0%, #101010 100%, #0d0d0d 100%);
+$gradientbg5: linear-gradient(90deg, #874fff 17%, #00000059 83%);
+$blacklightbg: #0d0f25;
+$inputplacebg: #4e538a;
+$darkblue: #12132f;
+$darkblue2: #1a1d40;
+$orangeclr: #ec9749;
+$sidebardbg: #373737bd;
+$borderblue: #7482ff4d;
+$borderblue2: #3d4063;
+$textgraylight: #a2a2a2;

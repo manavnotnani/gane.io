@@ -1,0 +1,198 @@
+@import "../../assets/scss/var";
+
+.form-label,
+.form-check-label {
+  font-size: 1.8rem;
+  color: $bluelight2;
+  margin-bottom: 1.1rem;
+  font-weight: 400;
+
+  @media (max-width: 1366px) {
+    font-size: 1.6rem;
+  }
+
+  @media (max-width: 991px) {
+    font-size: 1.4rem;
+  }
+}
+
+.form-label {
+  font-weight: 700;
+}
+
+.customInput {
+  &_inner {
+    position: relative;
+  }
+
+  .form-control {
+    height: 6.2rem;
+    border: 1px solid $bluelight;
+    background-color: $blacklightbg;
+    border-radius: 0.8rem;
+    width: 100%;
+    font-size: 2rem;
+    font-weight: 600;
+    color: $white;
+    letter-spacing: 0.85px;
+    padding: 2rem;
+    outline: none;
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    &.passwordInput {
+      padding-right: 60px;
+    }
+
+    @media (max-width: 1439px) {
+      height: 5rem;
+    }
+
+    @media (max-width: 1366px) {
+      font-size: 1.8rem;
+    }
+
+    @media (max-width: 1199px) {
+      height: 50px;
+    }
+
+    @media (max-width: 991px) {
+      font-size: 1.6rem;
+    }
+
+    &::-webkit-inner-spin-button {
+      display: none;
+    }
+
+    &::placeholder {
+      color: $inputplacebg;
+    }
+
+    &.is-invalid {
+      border: 1px solid $errorclr !important;
+    }
+  }
+
+  .eyeIcon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    display: flex;
+
+    svg {
+      opacity: 0.7;
+    }
+  }
+
+  &_innerserch {
+    display: flex;
+    align-items: center;
+    border-radius: 2.5rem;
+    background: $white;
+    padding: 1.3rem 1.6rem;
+
+    svg {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+
+    .form-control {
+      background: transparent !important;
+      border: none !important;
+      height: 2.4rem !important;
+      padding: 0 !important;
+      padding-left: 0.6rem !important;
+    }
+  }
+
+  .error-message {
+    font-size: 1.4rem;
+    color: $errorclr;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.checkbox_input {
+  .form-check {
+    margin-bottom: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+
+    .form-check-input {
+      float: unset;
+      margin: 0;
+      box-shadow: none;
+      width: 2.4rem;
+      height: 2.4rem;
+      cursor: pointer;
+    }
+
+    .form-check-label {
+      line-height: 1;
+      margin-left: 1rem;
+    }
+
+    &.form-switch {
+      .form-check-input {
+        width: 4.6rem;
+      }
+    }
+  }
+}
+.textarea {
+  .form-control {
+    height: 100% !important;
+    border: 1px solid $bluelight;
+    background-color: $blacklightbg;
+    border-radius: 0.8rem;
+    width: 100%;
+    font-size: 2rem;
+    font-weight: 600;
+    color: $white;
+    letter-spacing: 0.85px;
+    padding: 2rem;
+    outline: none;
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    &.passwordInput {
+      padding-right: 60px;
+    }
+
+    @media (max-width: 1439px) {
+      height: 5rem;
+    }
+
+    @media (max-width: 1366px) {
+      font-size: 1.8rem;
+    }
+
+    @media (max-width: 1199px) {
+      height: 50px;
+    }
+
+    @media (max-width: 991px) {
+      font-size: 1.6rem;
+    }
+
+    &::-webkit-inner-spin-button {
+      display: none;
+    }
+
+    &::placeholder {
+      color: $inputplacebg;
+    }
+
+    &.is-invalid {
+      border: 1px solid $errorclr !important;
+    }
+  }
+}
