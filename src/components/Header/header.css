@@ -113,3 +113,8 @@
     font-size: 0.7rem !important;
   }
 }
+
+.logo {
+  width: 240px;
+  padding-top: 5px;
+}

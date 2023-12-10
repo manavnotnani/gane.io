@@ -53,12 +53,17 @@ const Header = () => {
       <Container>
         <div className="navigation">
           <div className="logo">
-            <h2 className=" d-flex gap-2 align-items-center ">
-              <span>
+            {/* <h2 className=" d-flex gap-2 align-items-center ">
+              <span>n
                 <i class="ri-fire-fill"></i>
               </span>
               NFTs
-            </h2>
+            </h2> */}
+            <img
+              src="https://copper-written-jellyfish-195.mypinata.cloud/ipfs/QmVjSZJcAwLeYs65Ny4NsGWjMxVfKPtkqDURQEnRrB2VHL"
+              alt="gane logo"
+              className="logo"
+            ></img>
           </div>
 
           <div className="nav__menu" ref={menuRef} onClick={toggleMenu}>

@@ -1,24 +1,15 @@
 import { Col, Container, Row } from "reactstrap";
-import img from "../assets/images/img-01.jpg";
 import CommonSection from "../components/ui/Common-section/CommonSection";
 import NftCard from "../components/ui/Nft-card/NftCard";
 
-import { Formik, useFormik } from "formik";
-import Commonbtn from "../components/Common/Commonbutton/Commonbtn";
-import "../styles/create-item.css";
-import "./FormStyles.css";
+import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { callApiPostMethod } from "../Redux/Actions/api.action";
 import { callContractSendMethod } from "../Redux/Actions/contract.action";
 import { IMPLEMENTATION_ADDRESS, NFT_ADDRESS } from "../Utils";
-
-const item = {
-  id: "01",
-  title: "Guard",
-  desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam adipisci cupiditate officia, nostrum et deleniti vero corrupti facilis minima laborum nesciunt nulla error natus saepe illum quasi ratione suscipit tempore dolores. Recusandae, similique modi voluptates dolore repellat eum earum sint.",
-  image: img,
-  currentBid: 7.89,
-};
+import Commonbtn from "../components/Common/Commonbutton/Commonbtn";
+import "../styles/create-item.css";
+import "./FormStyles.css";
 
 const Create = () => {
   const dispatch = useDispatch();
@@ -52,7 +43,7 @@ const Create = () => {
         name: values.name,
         text: valuesToSend,
       };
-      
+
       let apiRes = await dispatch(
         callApiPostMethod("CREATE_TBA", params, {}, false)
       );
@@ -74,8 +65,6 @@ const Create = () => {
       }
     },
   });
-
-  // console.log(formik.values);
 
   return (
     <>
@@ -141,44 +130,8 @@ const Create = () => {
                           />
                         </div>
                       </Col>
-
-                      {/* <Col xs={3}>
-                          <div className="form__input">
-                            <label htmlFor="">Min Value</label>
-                            <input
-                              type="number"
-                              placeholder="Enter Min Value"
-                              onChange={(e) => formik.handleChange(e)}
-                              value={formik.values.minint}
-                            />
-                          </div>
-                        </Col> */}
-                      {/* <Col xs={2}>
-                          <div className="form__input">
-                            <button type="button">
-                              <CirclePlusIcon />
-                            </button>
-                          </div>
-                        </Col> */}
                     </Row>
                   </Col>
-
-                  {/* <div className=" d-flex align-items-center gap-4">
-                      <div className="form__input w-50">
-                        <label htmlFor="">Starting Date</label>
-                        <input type="date" />
-                      </div>
-
-                      <div className="form__input w-50">
-                        <label htmlFor="">Expiration Date</label>
-                        <input type="date" />
-                      </div>
-                    </div>
-
-                    <div className="form__input">
-                      <label htmlFor="">Title</label>
-                      <input type="text" placeholder="Enter title" />
-                    </div> */}
 
                   <div className="form__input">
                     <label htmlFor="">Description</label>
@@ -196,15 +149,7 @@ const Create = () => {
               </Col>
             </Row>
 
-            <Commonbtn
-              className={"submitBtn"}
-              title="Submit"
-              type="submit"
-              // disabled={
-              //   (formik.values.receiverAddress && !validReceiver) ||
-              //   (formik.values.tokenAddress && !validToken)
-              // }
-            />
+            <Commonbtn className={"submitBtn"} title="Submit" type="submit" />
           </form>
         </Container>
       </section>

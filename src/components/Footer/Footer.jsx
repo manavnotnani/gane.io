@@ -69,12 +69,11 @@ const Footer = () => {
         <Row>
           <Col lg="3" md="6" sm="6" className="mb-4">
             <div className="logo">
-              <h2 className=" d-flex gap-2 align-items-center ">
-                <span>
-                  <i class="ri-fire-fill"></i>
-                </span>
-                NFTs
-              </h2>
+              <img
+                src="https://copper-written-jellyfish-195.mypinata.cloud/ipfs/QmVjSZJcAwLeYs65Ny4NsGWjMxVfKPtkqDURQEnRrB2VHL"
+                alt="gane logo"
+                className="logo"
+              ></img>
               <p>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                 Voluptate, quod repellat! Quis quos dolorum tenetur fuga?
