@@ -1,6 +1,6 @@
-import { Router } from 'express';
-import { UserComponent } from '../components';
-import * as authMiddleware from '../middlewares/auth.middleware';
+import { Router } from "express";
+import { UserComponent } from "../components";
+import * as authMiddleware from "../middlewares/auth.middleware";
 
 /**
  * @constant {express.Router}
@@ -43,7 +43,7 @@ const router: Router = Router();
  *              logged: false
  *              message: Email already exists
  */
-router.post('/signup', authMiddleware.validateSignup, UserComponent.signup);
+router.post("/signup", authMiddleware.validateSignup, UserComponent.signup);
 
 /**
  * POST method route
@@ -82,10 +82,11 @@ router.post('/signup', authMiddleware.validateSignup, UserComponent.signup);
  *              logged: false
  *              message: Invalid credentials
  */
-router.post('/login', authMiddleware.validateLogin, UserComponent.login);
+router.post("/login", authMiddleware.validateLogin, UserComponent.login);
 
-router.post('/upload', UserComponent.uploadData);
+router.post("/upload", UserComponent.uploadData);
 
+router.get("/remainingNFTs", UserComponent.remainingNFTs);
 
 /**
  * @export {express.Router}

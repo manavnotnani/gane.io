@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import app from "../../config/server/server";
-import AuthService from "./service";
+import AuthService, { nftToBeSold } from "./service";
 import { RESPONSES, RES_MSG } from "../../utils/response";
 import config from "../../config/env";
 import logger from "../../utils/logger";
@@ -111,6 +111,27 @@ export async function uploadData(req: Request, res: Response): Promise<any> {
       logged: true,
       link,
       message: 'Upload "successfull',
+    });
+  } catch (error) {
+    return res.status(RESPONSES.BADREQUEST).send({
+      status: error.status || RESPONSES.BADREQUEST,
+      error: true,
+      message: error.message || "Something Went Wrong",
+    });
+  }
+}
+
+export async function remainingNFTs(req: Request, res: Response): Promise<any> {
+  try {
+    console.log('here', 111);
+    
+    const nfts = await nftToBeSold();
+
+    return res.status(RESPONSES.CREATED).send({
+      status: RESPONSES.SUCCESS,
+      logged: true,
+      nfts,
+      message: "fetch successfull",
     });
   } catch (error) {
     return res.status(RESPONSES.BADREQUEST).send({

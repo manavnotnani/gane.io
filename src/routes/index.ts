@@ -25,7 +25,7 @@ export function init(app: express.Application): void {
     const router: express.Router = express.Router();
 
     // Apply the rate limiter to all routes or specific routes
-    app.use(limiter);
+    // app.use(limiter);
     /**
      * @description Forwards any requests to the /auth URI to our AuthRouter
      * @constructs

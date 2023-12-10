@@ -1,3 +1,4 @@
+import { saveEventDetails, updateEventDetails } from "../../components/User/service";
 import BlockService from "../../components/blocks/blockService";
 import web3Service from "../../components/commonServices/web3.service";
 import * as dotenv from "dotenv";
@@ -43,36 +44,30 @@ export default class CronService {
               switch (eventInformation.event) {
                 case "OrderListed":
                   console.log("event return", eventInformation.returnValues);
-
-                  //   const newData = {
-                  //     user: eventInformation.returnValues?.user,
-                  //     inToken: eventInformation.returnValues?.inToken,
-                  //     outToken: eventInformation.returnValues?.outToken,
-                  //     srcAmount: BigInt(
-                  //       eventInformation.returnValues?.amount.toString()
-                  //     ),
-                  //     feeAmount: BigInt(
-                  //       eventInformation.returnValues?.feeAmount.toString()
-                  //     ),
-                  //     _nonce: BigInt(
-                  //       eventInformation.returnValues?._nonce.toString()
-                  //     ),
-                  //     isWrapped: BigInt(
-                  //       eventInformation.returnValues?.isWrapped.toString()
-                  //     ),
-                  //     srcId: BigInt(
-                  //       eventInformation.returnValues?.srcId.toString()
-                  //     ),
-                  //     dstId: BigInt(
-                  //       eventInformation.returnValues?.dstId.toString()
-                  //     ),
-                  //     srcHash: eventInformation?.transactionHash,
-                  //   };
+                    const newData = {
+                     OrderId: BigInt(eventInformation.returnValues.OrderId.toString()),
+                     TokenContract: eventInformation.returnValues.TokenContract,
+                     TokenId: BigInt(eventInformation.returnValues.TokenId.toString()),
+                     Price: BigInt(eventInformation.returnValues.Price.toString()),
+                     isListed: true,
+                     isBought: false
+                    };
                   //   await saveEventDetails(newData);
-
-                  
-
+                  await saveEventDetails(newData);
                   break;
+                  case "OrderCompleted":
+                    console.log("event return", eventInformation.returnValues);
+                      const data = {
+                       OrderId: BigInt(eventInformation.returnValues.OrderId.toString()),
+                    //    TokenContract: eventInformation.returnValues.TokenContract,
+                    //    TokenId: BigInt(eventInformation.returnValues.TokenId.toString()),
+                    //    Price: BigInt(eventInformation.returnValues.Price.toString()),
+                    //    isListed: true,
+                    //    isBought: false
+                      };
+                    //   await saveEventDetails(newData);
+                    await updateEventDetails(data.OrderId);
+                    break;
                 default:
                   break;
               }

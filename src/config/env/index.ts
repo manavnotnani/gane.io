@@ -45,7 +45,7 @@ const development: IConfig = {
     origin: process.env.ALLOWED_ORIGIN,
     tokenExpire: process.env.TOKEN_EXPIRE || '60m',
     rateLimit: {
-        maxRequest: Number(process.env.MAX_REQUEST) || 10,
+        maxRequest: Number(process.env.MAX_REQUEST) || 30,
         maxTime: Number(process.env.MAX_TIME) || 600000,
     },
 };
@@ -68,7 +68,7 @@ const production: IConfig = {
     origin: process.env.ALLOWED_ORIGIN,
     tokenExpire: process.env.TOKEN_EXPIRE || '60m',
     rateLimit: {
-        maxRequest: Number(process.env.MAX_REQUEST) || 10,
+        maxRequest: Number(process.env.MAX_REQUEST) || 30,
         maxTime: Number(process.env.MAX_TIME) || 600000,
     },
 };
@@ -91,7 +91,7 @@ const test: IConfig = {
     origin: process.env.ALLOWED_ORIGIN,
     tokenExpire: process.env.TOKEN_EXPIRE || '60m',
     rateLimit: {
-        maxRequest: Number(process.env.MAX_REQUEST) || 10,
+        maxRequest: Number(process.env.MAX_REQUEST) || 30,
         maxTime: Number(process.env.MAX_TIME) || 600000,
     },
 };
