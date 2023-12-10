@@ -3,6 +3,8 @@ import "./header.css";
 import { Container } from "reactstrap";
 import { GoogleLogin } from "@react-oauth/google";
 import { VENDOR_KEY } from "../../Utils";
+import { GoogleLogin } from '@react-oauth/google';
+import { NFT_ADDRESS, VENDOR_KEY } from "../../Utils";
 
 import { NavLink, Link } from "react-router-dom";
 import ConnectWallet from "../Common/ConnectWallet/ConnectWallet";
@@ -98,6 +100,30 @@ const Header = () => {
     }
   };
 
+  const performTX = async() => {
+    let token = localStorage.getItem('okto_auth_token');
+    if(token && connectedWallet) {
+      const { data } = await axios.post(
+        `https://3p-bff.oktostage.com/api/v1/rawtransaction/execute`,
+        {
+          network_name: "POLYGON_TESTNET",
+          transaction: {
+            from: connectedWallet,
+            to: NFT_ADDRESS,
+            data: "",
+            value: 100000,
+          }, // raw transaction
+        },
+        {
+          headers: {
+            "x-api-key": VENDOR_KEY,
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }
+  } 
+
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (
@@ -171,6 +197,8 @@ const Header = () => {
                 <p className=" create-wallet">Create Wallet</p>
               </button>
             )}
+
+            <button onclick={performTX} > TX </button>
 
             <span className="mobile__menu">
               <i class="ri-menu-line" onClick={toggleMenu}></i>
