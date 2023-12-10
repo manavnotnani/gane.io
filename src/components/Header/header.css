@@ -118,3 +118,12 @@
   width: 240px;
   padding-top: 5px;
 }
+
+.create-wallet {
+  color: white;
+  padding-top: 15px;
+}
+
+.wallet-button {
+  height: 50px;
+}
