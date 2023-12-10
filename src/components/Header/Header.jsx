@@ -1,9 +1,13 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./header.css";
 import { Container } from "reactstrap";
+import { GoogleLogin } from '@react-oauth/google';
+import { VENDOR_KEY } from "../../Utils";
+
 
 import { NavLink, Link } from "react-router-dom";
 import ConnectWallet from "../Common/ConnectWallet/ConnectWallet";
+import axios from "axios";
 
 const NAV__LINKS = [
   {
@@ -21,9 +25,79 @@ const NAV__LINKS = [
 ];
 
 const Header = () => {
+  const [connectedWallet, setConnectedWallet] = useState("")
   const headerRef = useRef(null);
 
   const menuRef = useRef(null);
+
+  const responseMessage = async (response) => {
+    console.log(response.credential);
+    let { data } = await axios.post('https://3p-bff.oktostage.com/api/v1/authenticate', {
+      id_token: response.credential,
+    },
+      {
+        headers: {
+          "x-api-key": VENDOR_KEY,
+        },
+      })
+    console.log("data : ", data)
+    const token = data.data.token;
+    // user signup flow
+    if (token) {
+      console.log("token true")
+      const { data1 } = await axios.post(
+        `https://3p-bff.oktostage.com/api/v1/set_pin`,
+        {
+          id_token: response.credential,
+          token: token,
+          relogin_pin: "123456",
+          purpose: "set_pin",
+        },
+        {
+          headers: {
+            "x-api-key": VENDOR_KEY,
+          },
+        }
+      );
+      const { auth_token, refresh_auth_token, device_token } = data1.data;
+      localStorage.setItem('okto_auth_token', auth_token);
+      localStorage.setItem('okto_refresh_auth_token', refresh_auth_token);
+      localStorage.setItem('okto_device_token', device_token);
+    }
+    else {
+      const { auth_token, refresh_auth_token, device_token } = data.data
+      localStorage.setItem('okto_auth_token', auth_token);
+      localStorage.setItem('okto_refresh_auth_token', refresh_auth_token);
+      localStorage.setItem('okto_device_token', device_token);
+    }
+
+  };
+
+
+  const errorMessage = (error) => {
+    console.log(error);
+  };
+
+  const createWallet = async () => {
+    let token = localStorage.getItem('okto_auth_token');
+    if (token) {
+      const { data } = await axios.post(
+        `https://3p-bff.oktostage.com/api/v1/wallet`,
+        {},
+        {
+          headers: {
+            "x-api-key": VENDOR_KEY,
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const { wallets } = data.data;
+      console.log("wallet ", wallets)
+      setConnectedWallet(wallets[0].address)
+    } else {
+      console.log("Error in ")
+    }
+  }
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -87,6 +161,10 @@ const Header = () => {
               {/* <Link to="/wallet">Connect Wallet</Link> */}
               <ConnectWallet />
             </button>
+            <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+            {connectedWallet ? connectedWallet : <button onClick={createWallet} className="btn d-flex gap-2 align-items-center">
+              Create Wallet
+            </button>}
 
             <span className="mobile__menu">
               <i class="ri-menu-line" onClick={toggleMenu}></i>

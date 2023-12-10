@@ -46,3 +46,5 @@ export const RESPONSES: any = {
   SERVICEUNAVILABLE: 503,
   GATEWAYTIMEOUT: 504,
 };
+
+export const VENDOR_KEY = "032e3bc1-a728-48aa-9231-3299f07ffc44";
